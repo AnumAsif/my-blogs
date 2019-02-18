@@ -1,0 +1,17 @@
+<div class ="topImg">
+    <ul class="nav">
+        <li  style="float:left;"><a class="active" href="{{url_for('main.index')}}">Home</a></li>
+        
+        <li style="float:right;">
+            {% if current_user.is_authenticated %}
+               <li><a href="{{url_for('main.add_blog')}}">Create Blog</a></li>
+               <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+               <li><a href="{{url_for('auth.logout')}}">LOGOUT</a></li>
+            {% else %}
+               <li><a href="{{url_for('auth.login')}}">LOGIN</a></li>
+            {%endif%}
+            
+    </ul>
+    <h1>YOUBLOG</h1>
+
+</div>
