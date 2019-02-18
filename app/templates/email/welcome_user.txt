@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to YouBlog
+We have just seen you have signed up and want to welcome you to the family. Please enjoy the blogs and post your own if you feel like.

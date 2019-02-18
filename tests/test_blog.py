@@ -8,7 +8,7 @@ class BlogModeltest(unittest.TestCase):
         self.user_anum = User(username = "anum", password = "anum123", email="anum@yahoo.com")
         self.new_blog = Blog(title="food", body = "I love food", user_id =self.user_anum.id )
 
-    def tearDown((self):
+    def tearDown(self):
         Blog.query.delete()
         User.query.delete()
 
@@ -30,4 +30,3 @@ class BlogModeltest(unittest.TestCase):
         blogs = Blog.get_blogs()
         self.assertTrue(len(blogs)==1)
 
-    

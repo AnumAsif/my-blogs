@@ -1,3 +1,5 @@
 {
-    "python.pythonPath": "blogvirtual/bin/python3.6"
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"],
+    // "python.pythonPath": "blogvirtual/bin/python3.6",
+   
 }
