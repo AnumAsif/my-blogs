@@ -48,8 +48,8 @@ def add_blog():
 @main.route('/profile/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    if user is None:
-        abort(404)
+    # if user is None:
+    #     abort(404)
     blogs=Blog.query.filter_by(user_id=user.id).all()
     return render_template("profile/profile.html", user = user,blogs=blogs)
         
@@ -60,3 +60,16 @@ def deleteComment(commentid,blogid):
     db.session.delete(comment)
     db.session.commit()
     return redirect(url_for("main.blog",id=blogid))
+
+@main.route('/deleteblog/<blogid>', methods=["get","post"])
+def delete_blog(blogid):
+    blog=Blog.query.filter_by(id=blogid).first()
+    uname = current_user.username
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for("main.profile", uname=uname))
+
+@main.route('/editblog/<blogid>', methods=["get","post"])
+def edit_blog(blogid):
+    blog=Blog.query.filter_by(id=blogid).first()
+    return redirect(url_for("main.profile", uname=uname))
