@@ -75,7 +75,7 @@ p{
     font-family: 'Courgette', cursive;
     margin-top: 200px;
 }
-.login, .registration, .blogform{
+.login, .registration, .blogform,.subscription{
     background-color:#DDC0A6;
     padding: 30px;
     margin: 20px;

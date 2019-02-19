@@ -1,16 +1,24 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from . import main
 from app import db
 from ..requests import get_quotes
 from flask_login import login_required, current_user
-from .forms import CreateBlog, AddComment
+from .forms import CreateBlog, AddComment,EditBlog,SubscribeForm
 from ..models import User,Blog,Comment
 @main.route('/')
 def index():
     new_quote = get_quotes()
     blogs = Blog.query.all()
     users = User.query.all()
-    return render_template('index.html', new_quote=new_quote, blogs=blogs, users=users)
+    form = SubscribeForm()
+    if form.validate_on_submit():
+        email=form.email.data
+        subscription = Subscription(email=email)
+        db.session.add(subscription)
+        db.session.commit()
+        # flash("Thanks! You will now receive emails for new blogs added")
+        return render_template('index.html', new_quote=new_quote, blogs=blogs, users=users, subscribe_form = form)
+    return render_template('index.html', new_quote=new_quote, blogs=blogs, users=users, subscribe_form = form)
 
 @main.route('/blog/<id>',methods=["get","post"])
 def blog(id):
@@ -69,7 +77,18 @@ def delete_blog(blogid):
     db.session.commit()
     return redirect(url_for("main.profile", uname=uname))
 
+
 @main.route('/editblog/<blogid>', methods=["get","post"])
 def edit_blog(blogid):
-    blog=Blog.query.filter_by(id=blogid).first()
-    return redirect(url_for("main.profile", uname=uname))
+    
+    form=EditBlog()
+    
+    if form.validate_on_submit():
+        body=form.body.data
+        blog=Blog.query.filter_by(id=blogid).update({"body":body})
+        db.session.commit()    
+        return redirect(url_for("main.profile", uname=current_user.username))
+    else:
+        form.body.data= Blog.query.filter_by(id=blogid).first().body
+    return render_template("update_blog.html", updateblog_form = form)
+
