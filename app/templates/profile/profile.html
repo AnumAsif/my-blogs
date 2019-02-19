@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block content%}
+<div class="container-fluid">
+    <div class="row">
+        
+           
+        <div class= "col-md-2"></div>
+        <div class= "col-md-8 profile">
+                <h2 style="font-size:40px; background-color: rosybrown; padding:20px; "> Welcome {{user.username| capitalize}} </h2>
+                <h3>Following are your added blogs. You can edit them or delete them</h3>
+            {%for blog in blogs%}
+            <h1>TITLE:  {{ blog.title}}</h1>
+            <hr style="border-width: 10px;border-color: peachpuff;">
+            
+            <h2>{{blog.subtitle}}</h2>
+            <h4>Created by: {{blog.user.username}} on {{blog.posted_on}}</h4>
+            <hr>
+        
+            <p>{{blog.body}}</p>
+            <button class="btn info-btn"><a href="url_for('main.delete_blog')">DELETE</a></button>
+            <button class="btn info-btn"><a href="url_for('main.edit_blog'">EDIT</a></button>
+            <hr style="border-width: 5px;border-color: peachpuff;">
+            <br>
+            {%endfor%}
+        </div>
+        <div class= "col-md-2"></div>
+        
+
+
+
+    </div>
+</div>
+{%endblock%}

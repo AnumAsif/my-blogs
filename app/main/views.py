@@ -47,7 +47,12 @@ def add_blog():
 
 @main.route('/profile/<uname>')
 def profile(uname):
-    return render_template('profile/profile.html')    
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        abort(404)
+    blogs=Blog.query.filter_by(user_id=user.id).all()
+    return render_template("profile/profile.html", user = user,blogs=blogs)
+        
 
 @main.route('/deleteComment/<int:commentid>/<int:blogid>',methods=["get","post"])
 def deleteComment(commentid,blogid):

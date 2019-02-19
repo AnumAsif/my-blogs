@@ -6,26 +6,32 @@
         <div class= "row">
             <div class = "col-md-2"></div>
             <div class = "col-md-8">
-                <h1>{{blog.title}}</h1>
+                <h1>TITLE:  {{ blog.title}}</h1>
+                <hr style="border-width: 10px;border-color: peachpuff;">
                 <br>
                 <h2>{{blog.subtitle}}</h2>
                 <h4>Created by: {{blog.user.username}} on {{blog.posted_on}}</h4>
-                <br>
+                <hr>
                 <br>
                 <p>{{blog.body}}</p>
+                <hr style="border-width: 5px;border-color: peachpuff;">
                 {%if current_user.is_authenticated%}
                 <div class=" panel comment_form">
                         {{ wtf.quick_form(comment_form) }}
                 </div>
                 {%endif%}
+                <hr style="border-width: 5px;border-color: peachpuff; ">
                 <div>
                     <h1>Comments</h1>
                     {% for comment in comments %}
-                    <p>{{comment.feedback}}</p>
-                    <p>-by<strong>{{comment.user.username}}</strong></p>
-                    {%if current_user.is_authenticated and current_user.id == blog.user_id%}
-                    <button><a href="{{url_for('main.deleteComment',commentid=comment.id, blogid=blog.id)}}">Delete</a></button>
-                    {%endif%}
+                    <div style="border:10px solid peachpuff; padding:20px; border-radius: 20px; margin-top: 5px;">
+                            <p>{{comment.feedback}}</p>
+                            <p>-by<strong>{{comment.user.username}}</strong></p>
+                            {%if current_user.is_authenticated and current_user.id == blog.user_id%}
+                            <button><a href="{{url_for('main.deleteComment',commentid=comment.id, blogid=blog.id)}}">Delete</a></button>
+                            {%endif%}
+                    </div>
+                   
                     {%endfor%}
                 </div>
                
