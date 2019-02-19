@@ -2,7 +2,7 @@ import unittest
 from app.models import User, Blog, Comment
 from app import db
 
-class BlogModeltest(unittest.TestCase):
+class BlogModelTest(unittest.TestCase):
 
     def setUp(self):
         self.user_anum = User(username = "anum", password = "anum123", email="anum@yahoo.com")
@@ -11,7 +11,9 @@ class BlogModeltest(unittest.TestCase):
     def tearDown(self):
         Blog.query.delete()
         User.query.delete()
+   
 
+   
     def test_instance(self):
         self.assertTrue(isinstance(self.new_blog, Blog))
 
@@ -22,7 +24,7 @@ class BlogModeltest(unittest.TestCase):
 
     def test_save_blog(self):
         self.new_blog.save_blog()
-        self.assertEqual(len(Blog.query.all())>0)
+        self.assertTrue(len(Blog.query.all())>0)
 
     def test_get_blogs(self):
 

@@ -68,5 +68,14 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     blog_id = db.Column(db.Integer,db.ForeignKey('blogs.id'))
 
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls):
+        comments = Comment.query.all()
+        return comments
+
     def __repr__(self):
         return f'User{self.feedback}'
