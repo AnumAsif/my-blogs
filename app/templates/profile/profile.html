@@ -19,8 +19,8 @@
             <hr>
         
             <p>{{blog.body}}</p>
-            <button class="btn info-btn"><a href="url_for('main.delete_blog')">DELETE</a></button>
-            <button class="btn info-btn"><a href="url_for('main.edit_blog'">EDIT</a></button>
+            <button class="btn info-btn"><a href="{{url_for('main.delete_blog',blogid=blog.id)}}">DELETE</a></button>
+            <button class="btn info-btn"><a href="{{url_for('main.edit_blog', blogid=blog.id)}}">EDIT</a></button>
             <hr style="border-width: 5px;border-color: peachpuff;">
             <br>
             {%endfor%}
